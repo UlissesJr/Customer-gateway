@@ -108,7 +108,7 @@ public class GatewayRequest implements IGatewayRequest {
     private Map<String,io.netty.handler.codec.http.cookie.Cookie> cookieMap;
 
     /**
-     * post请求定义的参数结合
+     * post请求定义的参数集合
      */
     @Getter
     private Map<String,List<String>> postParameters;
@@ -116,7 +116,7 @@ public class GatewayRequest implements IGatewayRequest {
 
     /******可修改的请求变量***************************************/
     /**
-     * 可修改的Scheme，默认是http://
+     * 可修改的 Scheme，默认是http://
      */
     private String modifyScheme;
 
@@ -125,7 +125,7 @@ public class GatewayRequest implements IGatewayRequest {
     private String modifyPath;
 
     /**
-     * 构建下游请求是的http请求构建器
+     * 构建下游请求时的http请求构建器
      */
     private final RequestBuilder requestBuilder;
 
@@ -141,7 +141,11 @@ public class GatewayRequest implements IGatewayRequest {
      * @param headers
      * @param fullHttpRequest
      */
-    public GatewayRequest(String uniqueId, Charset charset, String clientIp, String host, String uri, HttpMethod method, String contentType, HttpHeaders headers, FullHttpRequest fullHttpRequest) {
+    public GatewayRequest(String uniqueId, Charset charset,
+                          String clientIp, String host,
+                          String uri, HttpMethod method,
+                          String contentType, HttpHeaders headers,
+                          FullHttpRequest fullHttpRequest) {
         this.uniqueId = uniqueId;
         this.beginTime = TimeUtil.currentTimeMillis();
         this.charset = charset;
@@ -154,9 +158,9 @@ public class GatewayRequest implements IGatewayRequest {
         this.fullHttpRequest = fullHttpRequest;
         this.queryStringDecoder = new QueryStringDecoder(uri,charset);
         this.path  = queryStringDecoder.path();
+
         this.modifyHost = host;
         this.modifyPath = path;
-
         this.modifyScheme = BasicConst.HTTP_PREFIX_SEPARATOR;
         this.requestBuilder = new RequestBuilder();
         this.requestBuilder.setMethod(getMethod().name());
@@ -171,7 +175,6 @@ public class GatewayRequest implements IGatewayRequest {
 
     /**
      * 获取请求体
-     * @return
      */
     public String getBody(){
         if(StringUtils.isEmpty(body)){
@@ -182,12 +185,10 @@ public class GatewayRequest implements IGatewayRequest {
 
     /**
      * 获取Cookie
-     * @param name
-     * @return
      */
     public  io.netty.handler.codec.http.cookie.Cookie getCookie(String name){
         if(cookieMap == null){
-            cookieMap = new HashMap<String,io.netty.handler.codec.http.cookie.Cookie>();
+            cookieMap = new HashMap<>();
             String cookieStr = getHeaders().get(HttpHeaderNames.COOKIE);
             Set<io.netty.handler.codec.http.cookie.Cookie> cookies = ServerCookieDecoder.STRICT.decode(cookieStr);
             for(io.netty.handler.codec.http.cookie.Cookie cookie: cookies){
@@ -199,17 +200,13 @@ public class GatewayRequest implements IGatewayRequest {
 
     /**
      * 获取指定名词参数值
-     * @param name
-     * @return
      */
     public List<String> getQueryParametersMultiple(String name){
-        return  queryStringDecoder.parameters().get(name);
+        return queryStringDecoder.parameters().get(name);
     }
 
     /**
      * post请求获取指定名词参数值
-     * @param name
-     * @return
      */
     public List<String> getPostParametersMultiples(String name){
         String body = getBody();
@@ -221,7 +218,7 @@ public class GatewayRequest implements IGatewayRequest {
             if(postParameters == null || postParameters.isEmpty()){
                 return null;
             }else{
-              return   postParameters.get(name);
+              return postParameters.get(name);
             }
         } else if (isJsonPost()){
            try {
@@ -289,7 +286,7 @@ public class GatewayRequest implements IGatewayRequest {
 
     @Override
     public String getFinalUrl() {
-        return modifyScheme+modifyHost+modifyPath;
+        return modifyScheme + modifyHost + modifyPath;
     }
 
     @Override
@@ -307,7 +304,6 @@ public class GatewayRequest implements IGatewayRequest {
   public  boolean isJsonPost(){
         return HttpMethod.POST.equals(method) && contentType.startsWith(HttpHeaderValues.APPLICATION_JSON.toString());
   }
-
 
 
 }

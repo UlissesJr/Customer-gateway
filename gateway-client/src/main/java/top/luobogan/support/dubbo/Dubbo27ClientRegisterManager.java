@@ -6,6 +6,7 @@ import org.apache.dubbo.config.spring.context.event.ServiceBeanExportedEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import top.luobogan.config.ServiceDefinition;
 import top.luobogan.config.ServiceInstance;
 import top.luobogan.core.ApiAnnotationScanner;
 import top.luobogan.core.ApiProperties;
@@ -16,6 +17,8 @@ import top.luobogan.utils.TimeUtil;
 import java.util.HashSet;
 import java.util.Set;
 
+import static top.luobogan.constants.BasicConst.COLON_SEPARATOR;
+import static top.luobogan.constants.GatewayConst.DEFAULT_WEIGHT;
 
 @Slf4j
 public class Dubbo27ClientRegisterManager extends AbstractClientRegisterManager implements ApplicationListener<ApplicationEvent> {

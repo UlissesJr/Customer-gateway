@@ -8,6 +8,23 @@ import java.util.Set;
 
 /**
  * 核心规则类
+ *
+ * 实现 Serializable 接口的类可以被序列化和反序列化。
+ * 在 Java 中，序列化是将对象转换为字节流的过程，可以将对象的状态保存到磁盘或通过网络传输。
+ * 而反序列化则是将字节流转换回对象的过程，可以从磁盘或网络中读取对象的状态并重新构建对象。
+ * 如果一个类的实例需要被序列化和反序列化，那么该类必须实现 Serializable 接口，这是 Java 序列化机制的规定。
+ * 实现 Serializable 接口的类可以将其实例转换为字节流，使其可以在网络上传输或保存到磁盘中。
+ * 例如，当使用Java中的对象流（ObjectInputStream和ObjectOutputStream）进行数据传输时，
+ * 被传输的对象必须实现Serializable 接口。
+ * 需要注意的是，实现 Serializable 接口的类可以被序列化和反序列化，但不保证其安全性。
+ * 因此，在序列化敏感数据时，需要采取一些额外的安全措施，如加密、数字签名等。
+ *
+ * 实现 Comparable 接口的类可以进行对象之间的比较，可以用于排序等操作。
+ * 在 Java 中，Comparable 接口定义了一个 compareTo 方法，该方法接受一个类型相同的实例作为参数，返回一个整数值。
+ * 该整数值表示当前对象与参数对象之间的比较结果。
+ * 需要注意的是，实现 Comparable 接口的类必须考虑到传入 compareTo 方法的参数可能为 null 的情况，
+ * 并且在比较时应该考虑到所有的实例变量。
+ * 另外，如果一个类实现了 Comparable 接口，那么它也应该实现 equals 方法，以确保在比较对象相等性时的一致性。
  */
 public class Rule implements Comparable<Rule>, Serializable {
 
@@ -29,15 +46,18 @@ public class Rule implements Comparable<Rule>, Serializable {
     /**
      * 后端服务ID
      */
-    private String  serviceId;
+    private String serviceId;
+
     /**
      * 请求前缀
      */
     private String prefix;
+
     /**
      * 路径集合
      */
     private List<String> paths;
+
     /**
      * 规则排序，对应场景：一个路径对应多条规则，然后只执行一条规则的情况
      */
@@ -153,12 +173,12 @@ public class Rule implements Comparable<Rule>, Serializable {
         }
 
         @Override
-        public  boolean equals(Object o){
+        public boolean equals(Object o){
             if (this == o) {
-                return  true;
+                return true;
             }
 
-            if((o== null) || getClass() != o.getClass()){
+            if((o == null) || getClass() != o.getClass()){
                 return false;
             }
 
@@ -167,7 +187,7 @@ public class Rule implements Comparable<Rule>, Serializable {
         }
 
         @Override
-        public  int hashCode(){
+        public int hashCode(){
             return Objects.hash(id);
         }
     }
@@ -178,7 +198,7 @@ public class Rule implements Comparable<Rule>, Serializable {
      * @return
      */
      public boolean addFilterConfig(FilterConfig filterConfig){
-            return filterConfigs.add(filterConfig);
+        return filterConfigs.add(filterConfig);
      }
 
     /**
@@ -186,21 +206,20 @@ public class Rule implements Comparable<Rule>, Serializable {
      * @param id
      * @return
      */
-     public  FilterConfig getFilterConfig(String id){
-         for(FilterConfig config:filterConfigs){
+     public FilterConfig getFilterConfig(String id){
+         for(FilterConfig config : filterConfigs){
              if(config.getId().equalsIgnoreCase(id)){
-                return  config;
+                return config;
              }
-
          }
          return null;
      }
 
     /**
-     * 根据filterID判断当前Rule是否存在
+     * 根据 filterID 判断当前 Rule 是否存在
      * @return
      */
-    public boolean hashId(String id) {
+    public boolean hasId(String id) {
         for(FilterConfig filterConfig : filterConfigs) {
             if(filterConfig.getId().equalsIgnoreCase(id)) {
                 return true;
@@ -211,7 +230,7 @@ public class Rule implements Comparable<Rule>, Serializable {
 
     @Override
     public int compareTo(Rule o) {
-        int  orderCompare = Integer.compare(getOrder(),o.getOrder());
+        int orderCompare = Integer.compare(getOrder(),o.getOrder());
         if(orderCompare == 0){
           return getId().compareTo(o.getId());
         }
@@ -233,7 +252,7 @@ public class Rule implements Comparable<Rule>, Serializable {
     }
 
     @Override
-    public  int hashCode(){
+    public int hashCode(){
         return Objects.hash(id);
     }
 }

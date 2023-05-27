@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import top.luobogan.config.ServiceDefinition;
 import top.luobogan.config.ServiceInstance;
 import top.luobogan.core.ApiAnnotationScanner;
 import top.luobogan.core.ApiProperties;
@@ -23,6 +24,9 @@ import top.luobogan.utils.TimeUtil;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static top.luobogan.constants.BasicConst.COLON_SEPARATOR;
+import static top.luobogan.constants.GatewayConst.DEFAULT_WEIGHT;
 
 
 @Slf4j

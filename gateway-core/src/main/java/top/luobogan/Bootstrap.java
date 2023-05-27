@@ -1,10 +1,10 @@
 package top.luobogan;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.xml.internal.ws.api.server.ServiceDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.core.util.NetUtils;
 import top.luobogan.config.DynamicConfigManager;
+import top.luobogan.config.ServiceDefinition;
 import top.luobogan.config.ServiceInstance;
 import top.luobogan.utils.TimeUtil;
 

@@ -15,17 +15,11 @@ import top.luobogan.utils.AssertUtil;
 public class GatewayContext extends BasicContext {
 
     private GatewayRequest request;
-
     private GatewayResponse response;
-
     private Rule rule;
 
     /**
      * 构造函数
-     *
-     * @param protocol
-     * @param nettyCtx
-     * @param keepAlive
      */
     public GatewayContext(String protocol, ChannelHandlerContext nettyCtx, boolean keepAlive,
                           GatewayRequest request,Rule rule){
@@ -41,9 +35,7 @@ public class GatewayContext extends BasicContext {
        private boolean keepAlive;
        private  GatewayRequest request;
        private Rule rule;
-
        private Builder(){
-
        }
 
        public Builder setProtocol(String protocol){
@@ -73,13 +65,10 @@ public class GatewayContext extends BasicContext {
 
         public GatewayContext build(){
            AssertUtil.notNull(protocol,"protocol 不能为空");
-
-            AssertUtil.notNull(nettyCtx,"nettyCtx 不能为空");
-
-            AssertUtil.notNull(request,"request 不能为空");
-
-            AssertUtil.notNull(rule,"rule 不能为空");
-            return new GatewayContext(protocol,nettyCtx,keepAlive,request,rule);
+           AssertUtil.notNull(nettyCtx,"nettyCtx 不能为空");
+           AssertUtil.notNull(request,"request 不能为空");
+           AssertUtil.notNull(rule,"rule 不能为空");
+           return new GatewayContext(protocol,nettyCtx,keepAlive,request,rule);
         }
     }
 
@@ -139,7 +128,5 @@ public class GatewayContext extends BasicContext {
     public GatewayRequest getOriginRequest(){
         return  request;
     }
-
-
 
 }

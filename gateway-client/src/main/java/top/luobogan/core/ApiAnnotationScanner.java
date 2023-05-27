@@ -3,12 +3,12 @@ package top.luobogan.core;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.ProviderConfig;
 import org.apache.dubbo.config.spring.ServiceBean;
-import org.imooc.common.config.DubboServiceInvoker;
-import org.imooc.common.config.HttpServiceInvoker;
-import org.imooc.common.config.ServiceDefinition;
-import org.imooc.common.config.ServiceInvoker;
-import org.imooc.common.constants.BasicConst;
-import org.imooc.gateway.client.support.dubbo.DubboConstants;
+import top.luobogan.config.DubboServiceInvoker;
+import top.luobogan.config.HttpServiceInvoker;
+import top.luobogan.config.ServiceDefinition;
+import top.luobogan.config.ServiceInvoker;
+import top.luobogan.constants.BasicConst;
+import top.luobogan.support.dubbo.DubboConstants;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
